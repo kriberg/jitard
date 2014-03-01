@@ -58,7 +58,6 @@ App.filter('itemFilter', function() {
             }
         });
         predicate = predicate.join('&&');
-        console.log(predicate);
         var matches = [];
         angular.forEach(items, function(item) {
             if(eval(predicate)) matches.push(item);
