@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="Jitard">
+<head>
+    <title>Jitard</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="jitard.css">
+
+</head>
+<body ng-controller="ItemCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="form-group">
+            <label for="filter">Filter</label>
+                <input class="form-control" id="filter" type="text" ng-model="searchTerms"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-condensed table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Item</th><th>System</th><th>Margin</th><th>Profit</th><th>Buy max</th><th>Sell min</th><th>Sell 5%</th><th>Category</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="item in items| itemFilter:searchTerms | startFrom:currentPage*pageSize.size | limitTo:pageSize.size">
+                        <td>{{item.typename}}</td><td>{{item.location}}</td><td class="number">{{item.margin|isk}}%</td><td class="number">{{item.profit|isk}}</td><td class="number">{{item.buy_max|isk}}</td><td class="number">{{item.sell_min|isk}}</td><td class="number">{{item.sell_percentile|isk}}</td><td>{{item.categoryname}}</td>
+                    </tr>
+                </table>
+                Page size: <select ng-model="pageSize" ng-options="s.name for s in pageSizes"></select>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.13/angular.min.js"></script>
+    <script src="jquery-2.1.0.min.js"></script>
+    <script src="jquery.number.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="jitard.js"></script>
+</body>
+</html>
