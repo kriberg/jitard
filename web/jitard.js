@@ -44,12 +44,12 @@ App.filter('itemFilter', function() {
         angular.forEach(terms, function(term) {
             term = 'item.' + term;
             term = term.replace('=', '==');
-            if(term.contains('==')) {
+            if(term.indexOf('==') != -1) {
                 var parts = term.split('==');
                 var subparts = parts[1].split('|');
                 var ors = [];
                 angular.forEach(subparts, function(subpart) {
-                    if(typeof subpart == 'string') ors.push(parts[0] + "=='" + subpart + "'");
+                    if(typeof subpart == 'string') ors.push(parts[0] + ".indexOf('" + subpart + "') != -1");
                     else ors.push(parts[0] + '==' + subpart);
                 });
                 predicate.push('(' + ors.join('||') + ')');

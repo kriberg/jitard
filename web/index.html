@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="Jitard">
 <head>
+    <meta charset="utf-8">
     <title>Jitard</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
@@ -8,9 +9,9 @@
 
 </head>
 <body ng-controller="ItemCtrl">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="form-group">
+            <div class="col-md-12 form-group">
             <label for="filter">Filter</label>
                 <input class="form-control" id="filter" type="text" ng-model="searchTerms"/>
             </div>
@@ -19,12 +20,28 @@
             <div class="col-md-12">
                 <table class="table table-condensed table-bordered table-striped">
                     <thead>
-                        <tr>
-                            <th>Item</th><th>System</th><th>Margin</th><th>Profit</th><th>Buy max</th><th>Sell min</th><th>Sell 5%</th><th>Category</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Margin</th>
+                        <th>Profit</th>
+                        <th>Buy max</th>
+                        <th>Sell min</th>
+                        <th>Sell 5%</th>
+                        <th>Category</th>
+                        <th>Timestamp</th>
+                    </tr>
                     </thead>
                     <tr ng-repeat="item in items| itemFilter:searchTerms | startFrom:currentPage*pageSize.size | limitTo:pageSize.size">
-                        <td>{{item.typename}}</td><td>{{item.location}}</td><td class="number">{{item.margin|isk}}%</td><td class="number">{{item.profit|isk}}</td><td class="number">{{item.buy_max|isk}}</td><td class="number">{{item.sell_min|isk}}</td><td class="number">{{item.sell_percentile|isk}}</td><td>{{item.categoryname}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.location}}</td>
+                        <td class="number">{{item.margin|isk}}%</td>
+                        <td class="number">{{item.profit|isk}}</td>
+                        <td class="number">{{item.buy_max|isk}}</td>
+                        <td class="number">{{item.sell_min|isk}}</td>
+                        <td class="number">{{item.sell_percentile|isk}}</td>
+                        <td>{{item.category}}</td>
+                        <td>{{item.timestamp}}</td>
                     </tr>
                 </table>
                 Page size: <select ng-model="pageSize" ng-options="s.name for s in pageSizes"></select>
