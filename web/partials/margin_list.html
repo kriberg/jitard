@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 form-group">
+            <label for="filter">Filter</label>
+            <input class="form-control" id="filter" type="text" ng-model="searchTerms"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th ng-click="changeSorting('name')">Name</th>
+                    <th ng-click="changeSorting('system')">System</th>
+                    <th ng-click="changeSorting('margin')">Margin</th>
+                    <th ng-click="changeSorting('profit')">Profit</th>
+                    <th ng-click="changeSorting('buy_max')">Buy max</th>
+                    <th ng-click="changeSorting('sell_min')">Sell min</th>
+                    <th ng-click="changeSorting('sell_percentile')">Sell 5%</th>
+                    <th ng-click="changeSorting('meta')">Meta level</th>
+                    <th ng-click="changeSorting('category')">Category</th>
+                    <th ng-click="changeSorting('groups')">Groups</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="item in items | itemFilter:searchTerms | orderBy:sort.column:sort.descending | startFrom:currentPage*pageSize.size | limitTo:pageSize.size">
+                    <td>{{item.name}}</td>
+                    <td>{{item.system}}</td>
+                    <td class="number">{{item.margin|pertify}}%</td>
+                    <td class="number">{{item.profit|pertify}}</td>
+                    <td class="number">{{item.buy_max|pertify}}</td>
+                    <td class="number">{{item.sell_min|pertify}}</td>
+                    <td class="number">{{item.sell_percentile|pertify}}</td>
+                    <td class="number">{{item.meta}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.groups}}</td>
+                </tr>
+            </table>
+            <ul ng-hide="data_loaded" class="ng-hide list-unstyled text-center">
+                <li ng-repeat="msg in loading_status">{{msg}}</li>
+            </ul>
+            Page size: <select ng-model="pageSize" ng-options="s.name for s in pageSizes"></select>
+        </div>
+    </div>
+</div>
